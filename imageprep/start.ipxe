@@ -1,0 +1,51 @@
+#!ipxe
+
+set menu-timeout 0
+set submenu-timeout 0
+
+cpuid --ext 29 && set arch x64 || set arch x86
+cpuid --ext 29 && set archl amd64 || set archl i386
+
+:start
+echo Booting iPXE from NGINX
+echo
+menu iPXE boot menu for ${initiator-iqn}
+item --gap --        ----Convient helper images----
+item --key m memtest Boot Memtest+
+item --key u xenialsrvamd64 Install Ubuntu server Xenial amd64 (With preseed)
+item xenialamd64 Install Ubuntu Xenial amd64 (No Preseed)
+item xeniali386 Install Ubuntu Xenial i386 (No Preseed)
+item
+item --key x exit    Exit iPXE and continue normal boot
+choose selected
+goto ${selected}
+
+:memtest
+echo Booting Memtest+
+#kernel http://192.168.1.114/images/memtest/memtest86+-5.01.bin
+#kernel http://192.168.1.114/images/memtest/memtest86plus-5.01.bin
+kernel /images/memtest/memtest86plus-5.01.bin
+boot
+goto start
+
+:xenialsrvamd64
+echo Installing Xenial server amd64
+kernel /images/ubuntu-installer/xenial-updates/amd64/linux
+initrd /images/ubuntu-installer/xenial-updates/amd64/initrd.gz
+imgargs linux auto=true preseed/url=http://192.168.1.114/preseed/ubuntu-installer/xenial-updates/amd64/server.preseed
+boot
+goto start
+
+:xenialamd64
+echo Starting Xenial amd64 installer
+kernel /images/ubuntu-installer/xenial-updates/amd64/linux
+initrd /images/ubuntu-installer/xenial-updates/amd64/initrd.gz
+boot
+goto start
+
+:xeniali386
+echo Starting Xenial i386 installer
+kernel /images/ubuntu-installer/xenial-updates/i386/linux
+initrd /images/ubuntu-installer/xenial-updates/i386/initrd.gz
+boot
+goto start

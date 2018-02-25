@@ -1,0 +1,4 @@
+#!ipxe
+
+dhcp net0
+chain --replace --autofree http://${net0/next-server}/

@@ -1,0 +1,7 @@
+*~
+\#*#
+*.swp
+/imageprep/*/target/
+/imageprep/*/cache/
+/imageprep/pxeoverlay/
+/kpxeprep/ipxe/
