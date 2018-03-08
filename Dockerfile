@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM nginx:1.13.9-alpine
 
 # Install tftpd
 # http://forum.alpinelinux.org/apk/main/x86_64/tftp-hpa
