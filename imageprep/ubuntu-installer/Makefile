@@ -1,12 +1,12 @@
 # Actually useful variables.
 
-UBUNTU_RELEASE=xenial-updates
+UBUNTU_RELEASE=bionic
 
 # Internal bullshit you can ignore.
 
 TARGET_DIR=./target
 
-CACHE_DIR=./cache
+CACHE_DIR=./cache/${UBUNTU_RELEASE}
 
 UBUNTU_DIR_PART=ubuntu-installer/${UBUNTU_RELEASE}
 
@@ -25,6 +25,7 @@ ${IMAGES_DIR}/%: ${CACHE_DIR}/%.netboot.tar.gz
 	mkdir -p $@
 	mkdir -p ${PRESEED_DIR}/$(@F)
 	tar xzf $< -C ${IMAGES_DIR} ./ubuntu-installer/$(@F)/initrd.gz ./ubuntu-installer/$(@F)/linux --strip-components=2
+	chmod ugo+r ${IMAGES_DIR} ./ubuntu-installler/$(@F)/initrd.gz ${IMAGES_DIR}/$(@F)/linux
 	cp $(@F).server.preseed ${PRESEED_DIR}/$(@F)/server.preseed
 
 # amd64 targets
