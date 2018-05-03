@@ -15,7 +15,6 @@ PRESEED_DIR=${TARGET_DIR}/preseed/${UBUNTU_DIR_PART}
 
 all: amd64 arm64 i386
 
-
 dirs:
 	mkdir -p ${CACHE_DIR} ${IMAGES_DIR} ${PRESEED_DIR}
 
@@ -30,8 +29,8 @@ ${IMAGES_DIR}/%: ${CACHE_DIR}/%.netboot.tar.gz
 ${CACHE_DIR}/amd64.netboot.tar.gz: dirs
 	-wget http://archive.ubuntu.com/ubuntu/dists/${UBUNTU_RELEASE}/main/installer-amd64/current/images/netboot/netboot.tar.gz -O ${CACHE_DIR}/amd64.netboot.tar.gz -nc
 
-
 amd64: ${IMAGES_DIR}/amd64
+
 
 # arm64 targets
 
@@ -40,11 +39,11 @@ ${CACHE_DIR}/arm64.netboot.tar.gz: dirs
 
 arm64: ${IMAGES_DIR}/arm64
 
+
 # i386 targets
 
 ${CACHE_DIR}/i386.netboot.tar.gz: dirs
 	-wget http://archive.ubuntu.com/ubuntu/dists/${UBUNTU_RELEASE}/main/installer-i386/current/images/netboot/netboot.tar.gz -O ${CACHE_DIR}/i386.netboot.tar.gz -nc
-
 
 i386: ${IMAGES_DIR}/i386
 
