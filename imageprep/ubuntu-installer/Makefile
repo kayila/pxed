@@ -30,7 +30,7 @@ ${IMAGES_DIR}/%: ${CACHE_DIR}/%.netboot.tar.gz
 # amd64 targets
 
 ${CACHE_DIR}/amd64.netboot.tar.gz: dirs
-	wget http://archive.ubuntu.com/ubuntu/dists/${UBUNTU_RELEASE}/main/installer-amd64/current/images/netboot/netboot.tar.gz -O ${CACHE_DIR}/amd64.netboot.tar.gz -nc || echo "Using cached amd64.netboot.tar.gz."
+	- wget http://archive.ubuntu.com/ubuntu/dists/${UBUNTU_RELEASE}/main/installer-amd64/current/images/netboot/netboot.tar.gz -O ${CACHE_DIR}/amd64.netboot.tar.gz -nc
 
 
 amd64: ${IMAGES_DIR}/amd64
