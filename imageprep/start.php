@@ -1,4 +1,6 @@
 <?php
+// Dynamic ipxe boot screen
+// Check https://www.ipxe.org/scripting#dynamic_scripts for more information
   header("Content-Type: text/plain");
   print("#!ipxe\n");
 
@@ -20,7 +22,7 @@
 set menu-timeout 0
 set submenu-timeout 0
 
-# Yea, I don't remember why these are needed. Good luck.
+# Check x86 CPU features and set arch and archl variables
 cpuid --ext 29 && set arch x64 || set arch x86
 cpuid --ext 29 && set archl amd64 || set archl i386
 
@@ -28,7 +30,7 @@ cpuid --ext 29 && set archl amd64 || set archl i386
 echo Booting iPXE from NGINX
 echo
 menu iPXE boot menu for ${initiator-iqn}
-item --gap -- Operating systems
+#item --gap -- Operating systems
 <?php
   foreach( $entries as $entry ) {
     printf("item %s %s\n", $entry["key"], $entry["title"]);
