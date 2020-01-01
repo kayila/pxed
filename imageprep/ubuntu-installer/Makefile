@@ -26,6 +26,7 @@ ${IMAGES_DIR}/%: ${CACHE_DIR}/%.netboot.tar.gz ubuntu.php
 	mkdir -p $@
 	mkdir -p ${PRESEED_DIR}/$(@F)
 	tar xzf $< -C ${IMAGES_DIR} ./ubuntu-installer/$(@F)/initrd.gz ./ubuntu-installer/$(@F)/linux --strip-components=2
+	chmod ugo+r ${IMAGES_DIR}/$(@F)/initrd.gz ${IMAGES_DIR}/$(@F)/linux
 	echo "Copying over preside file if one exists at ${UBUNTU_RELEASE}/$(@F).server.preseed"
 	-cp ${UBUNTU_RELEASE}/$(@F).server.preseed ${PRESEED_DIR}/$(@F)/server.preseed
 	cp ubuntu.php ${ENTRY_DIR}/
