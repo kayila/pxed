@@ -1,4 +1,4 @@
-all: ubuntu-installer
+all: ubuntu-installer dban
 
 pxeoverlay:
 	mkdir -p pxeoverlay
@@ -12,9 +12,13 @@ memtest:
 ubuntu-installer:
 	$(MAKE) -C ubuntu-installer
 
+dban:
+	$(MAKE) -C dban
+
 clean:
 	# $(MAKE) -C memtest clean
 	$(MAKE) -C ubuntu-installer clean
+	$(MAKE) -C dban clean
 	rm -rf pxeoverlay
 
-.PHONY: memtest ubuntu-installer clean all pxeoverlay
+.PHONY: memtest ubuntu-installer dban clean all pxeoverlay
