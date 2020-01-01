@@ -20,7 +20,7 @@ docker run -it --rm -p 80:80 -p 69:69/udp --name pxe pxe
 
 In actual use, you'll probably want to mount a replacement for the /tftpboot/pxe folder which is served by nginx in order to provide custom boot images.
 ```
-docker run -it --rm -p 80:80 -p 69:69/udp --name pxe -v $(pwd)/pxe:/tftpboot/pxe pxe
+docker run -it --rm -p 80:80 -p 69:69/udp --name pxe -v $(pwd)/imageprep/pxeoverlay:/tftpboot/pxe pxe
 ```
 NGINX will look for the start file in the following order:
 * index.php
@@ -41,7 +41,7 @@ In order to rebuild the kpxe binary with `checktftp.ipxe` included, run `build.s
 ### HTTPS
 While iPXE can support HTTPS, the version used by default in this package does not. The reason for this is due to the way that iPXE handles the trust chain for HTTPS certs. If you need to use this feature, you can compile a custom version of undionly.kpxe which supports it, please see https://ipxe.org/crypto for information explaining the details of this feature.
 
-## Possiable features still planned:
+## Possible features still planned:
 * Make `next.ipxe` dynamically configurable via env var
 * Create scripts to automatically populate/create some base images (memtest+, clonezilla, gparted, PING, etc)
 

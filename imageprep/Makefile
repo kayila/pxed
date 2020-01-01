@@ -3,6 +3,7 @@ all: ubuntu-installer
 pxeoverlay:
 	mkdir -p pxeoverlay
 	cp start.ipxe pxeoverlay/
+	cp start.php pxeoverlay/
 	cp -rv ./*/target/* pxeoverlay/
 
 memtest:

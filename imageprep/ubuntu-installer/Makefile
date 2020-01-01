@@ -1,6 +1,6 @@
 # Actually useful variables.
 
-UBUNTU_RELEASE ?= bionic
+UBUNTU_RELEASE=bionic-updates
 
 # Internal bullshit you can ignore.
 
@@ -12,17 +12,23 @@ UBUNTU_DIR_PART=ubuntu-installer/${UBUNTU_RELEASE}
 
 IMAGES_DIR=${TARGET_DIR}/images/${UBUNTU_DIR_PART}
 PRESEED_DIR=${TARGET_DIR}/preseed/${UBUNTU_DIR_PART}
+ENTRY_DIR=${TARGET_DIR}/entries
 
 all: amd64 arm64 i386
 
 dirs:
-	mkdir -p ${CACHE_DIR} ${IMAGES_DIR} ${PRESEED_DIR}
+	mkdir -p ${CACHE_DIR}
+	mkdir -p ${IMAGES_DIR}
+	mkdir -p ${PRESEED_DIR}
+	mkdir -p ${ENTRY_DIR}
 
-${IMAGES_DIR}/%: ${CACHE_DIR}/%.netboot.tar.gz
-	mkdir -p $@ ${PRESEED_DIR}/$(@F)
+${IMAGES_DIR}/%: ${CACHE_DIR}/%.netboot.tar.gz ubuntu.php
+	mkdir -p $@
+	mkdir -p ${PRESEED_DIR}/$(@F)
 	tar xzf $< -C ${IMAGES_DIR} ./ubuntu-installer/$(@F)/initrd.gz ./ubuntu-installer/$(@F)/linux --strip-components=2
-	chmod ugo+r ${IMAGES_DIR}/$(@F)/initrd.gz ${IMAGES_DIR}/$(@F)/linux
-	cp $(@F).server.preseed ${PRESEED_DIR}/$(@F)/server.preseed
+	echo "Copying over preside file if one exists at ${UBUNTU_RELEASE}/$(@F).server.preseed"
+	-cp ${UBUNTU_RELEASE}/$(@F).server.preseed ${PRESEED_DIR}/$(@F)/server.preseed
+	cp ubuntu.php ${ENTRY_DIR}/
 
 # amd64 targets
 
