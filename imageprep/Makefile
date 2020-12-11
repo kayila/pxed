@@ -1,6 +1,6 @@
-all: ubuntu-installer dban
+all: pxeoverlay
 
-pxeoverlay:
+pxeoverlay: ubuntu-installer dban
 	mkdir -p pxeoverlay
 	cp start.ipxe pxeoverlay/
 	cp start.php pxeoverlay/
