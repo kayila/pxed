@@ -22,6 +22,7 @@ run: all
 	docker run -it --rm -p 80:80 -p 69:69/udp --name pxed -v $(shell pwd)/imageprep/pxeoverlay:/tftpboot/pxe:z pxed
 
 clean:
-	docker rmi pxed
+	docker rmi pxed || true
+	$(MAKE) -C imageprep clean
 
 .PHONY: kpxeprep
