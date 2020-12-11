@@ -20,6 +20,7 @@ dban:
 
 clean:
 	# $(MAKE) -C memtest clean
+	$(MAKE) -C fedora-installer clean
 	$(MAKE) -C ubuntu-installer clean
 	$(MAKE) -C dban clean
 	rm -rf pxeoverlay
