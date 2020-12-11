@@ -1,6 +1,6 @@
 all: pxeoverlay
 
-pxeoverlay: ubuntu-installer dban
+pxeoverlay: fedora-installer ubuntu-installer dban
 	mkdir -p pxeoverlay
 	cp start.ipxe pxeoverlay/
 	cp start.php pxeoverlay/
@@ -8,6 +8,9 @@ pxeoverlay: ubuntu-installer dban
 
 memtest:
 	$(MAKE) -C memtest
+
+fedora-installer:
+	$(MAKE) -C fedora-installer
 
 ubuntu-installer:
 	$(MAKE) -C ubuntu-installer
@@ -21,4 +24,4 @@ clean:
 	$(MAKE) -C dban clean
 	rm -rf pxeoverlay
 
-.PHONY: memtest ubuntu-installer dban clean all pxeoverlay
+.PHONY: memtest ubuntu-installer fedora-installer dban clean all pxeoverlay
