@@ -95,4 +95,4 @@ Please see https://ipxe.org/crypto for information explaining the details of thi
 
 ## License
 This code is licenced under the MIT License. See the included LICENSE
-file for details
+file for details.
