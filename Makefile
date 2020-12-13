@@ -10,7 +10,7 @@ build-if-needed:
 	$(MAKE) check 2>/dev/null || $(MAKE) build
 
 build: files
-	docker build . -t pxed
+	(cd docker && docker build . -t pxed)
 
 kpxeprep:
 	(cd kpxeprep && ./build.sh)
