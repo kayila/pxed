@@ -9,7 +9,7 @@ imageprep/pxeoverlay:
 build-if-needed:
 	$(MAKE) check 2>/dev/null || $(MAKE) build
 
-build: files
+build:
 	(cd docker && docker build . -t pxed)
 
 kpxeprep:
