@@ -7,7 +7,7 @@ ipxe/src/bin/undionly.kpxe: ipxe
 	$(MAKE) -C ipxe/src bin/undionly.kpxe EMBED=../../bootstrap/checktftp.ipxe
 
 kpxe: ipxe/src/bin/undionly.kpxe
-	cp ipxe/src/bin/undionly.kpxe ../files/undionly.kpxe
+	cp ipxe/src/bin/undionly.kpxe ../docker/files/undionly.kpxe
 
 clean:
 	$(MAKE) -C ipxe/src clean
