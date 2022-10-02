@@ -36,6 +36,9 @@ menu iPXE boot menu for ${initiator-iqn}
     printf("item %s %s\n", $entry["key"], $entry["title"]);
   }
 ?>
+
+item xyz Boot netboot.xyz in Legacy mode BIOS
+item xyzefi Boot netboot.xyz in EFI mode BIOS
 item
 item --key x exit Exit iPXE and continue normal boot
 choose selected
@@ -50,4 +53,16 @@ goto ${selected}
     print("boot\ngoto start\n");
   }
 ?>
+
+:xyz
+echo "Selected netboot.xyz Legacy mode"
+chain --autofree http://boot.netboot.xyz/ipxe/netboot.xyz.lkrn
+boot
+goto start
+
+:xyzefi
+echo "Selected netboot.xyz EFI mode"
+chain --autofree http://boot.netboot.xyz/ipxe/netboot.xyz.efi
+boot
+goto start
 
