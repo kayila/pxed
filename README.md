@@ -48,6 +48,8 @@ To build the container, run `make`.
 
 To run a basic server to test PXE Boot functionality, run `make demo`
 
+To run a server, with all images available, but only once `make run-once`
+
 To run a server with all the images available, simply run `make run`.
 
 ## Startup
