@@ -1,6 +1,6 @@
 # Configuration
 
-FEDORA_RELEASE ?= 33
+FEDORA_RELEASE ?= 36
 
 # Internal stuff you can ignore.
 
