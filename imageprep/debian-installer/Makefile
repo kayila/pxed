@@ -34,7 +34,7 @@ export MENU_ENTRY_BODY
 .PHONY: installer-amd64
 installer-amd64: ${CACHE_DIR}/installer-amd64.netboot.tar.gz
 	mkdir -p ${TARGET_DIR}
-	tar -xf ${CACHE_DIR}/installer-amd64.netboot.tar.gz -vz -C ${TARGET_DIR} ./debian-installer
+	tar -xf ${CACHE_DIR}/installer-amd64.netboot.tar.gz -vz -C ${TARGET_DIR}
 	mkdir -p ${MENU_DIR}
 	printf "$$MENU_ENTRY_BODY" > ${MENU_DIR}/debian-${RELEASE}-${ARCH}.php
 
@@ -63,7 +63,7 @@ define MENU_ENTRY_BODY
 	  "body" => <<<BODY
 set 210:string http://$${next-server}/
 set 209:string images/${RELEASE}/debian-installer/${ARCH}/pxelinux.cfg/default
-chain /images/${RELEASE}/debian-installer/${ARCH}/pxelinux.0
+chain /images/${RELEASE}/pxelinux.0
 BODY
   );
 ?>
