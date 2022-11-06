@@ -1,21 +1,21 @@
 # Configuration
 
-DEBIAN_RELEASE ?= bullseye
+RELEASE ?= bullseye
 
 ARCH ?= amd64
 
 # Internal stuff you can ignore.
 
 CACHE_BASE_DIR=./cache
-CACHE_DIR=${CACHE_BASE_DIR}/${DEBIAN_RELEASE}
+CACHE_DIR=${CACHE_BASE_DIR}/${RELEASE}
 
-URL_PREFIX := https://deb.debian.org/debian/dists/${DEBIAN_RELEASE}/main
+URL_PREFIX := https://deb.debian.org/debian/dists/${RELEASE}/main
 URL_SUFFIX := current/images/netboot/netboot.tar.gz
 
 TARGET_BASE_DIR=./target
-TARGET_DIR=${TARGET_BASE_DIR}/${DEBIAN_RELEASE}
+TARGET_DIR=${TARGET_BASE_DIR}/images/${RELEASE}
 
-MENU_DIR=./target/entries
+MENU_DIR=${TARGET_BASE_DIR}/entries
 
 .PHONY: all
 all: installer-amd64
@@ -36,11 +36,11 @@ installer-amd64: ${CACHE_DIR}/installer-amd64.netboot.tar.gz
 	mkdir -p ${TARGET_DIR}
 	tar -xf ${CACHE_DIR}/installer-amd64.netboot.tar.gz -vz -C ${TARGET_DIR} ./debian-installer
 	mkdir -p ${MENU_DIR}
-	printf "$$MENU_ENTRY_BODY" > ${MENU_DIR}/debian-${DEBIAN_RELEASE}-${ARCH}.php
+	printf "$$MENU_ENTRY_BODY" > ${MENU_DIR}/debian-${RELEASE}-${ARCH}.php
 
 .PHONY: clean
 clean:
-	rm -rf ${TARGET_DIR} ${ENTRY_DIR}
+	rm -rf ${TARGET_DIR} ${MENU_DIR}/debian-${RELEASE}-${ARCH}.php
 
 .PHONY: veryclean
 veryclean:
@@ -58,12 +58,12 @@ verycleancache:
 define MENU_ENTRY_BODY
 <?php
 	$$entries[] = array(
-	  "key" => "debian-${DEBIAN_RELEASE}-${ARCH}",
-	  "title" => "Install Debian ${DEBIAN_RELEASE} ${ARCH}",
+	  "key" => "debian-${RELEASE}-${ARCH}",
+	  "title" => "Install Debian ${RELEASE} ${ARCH}",
 	  "body" => <<<BODY
 set 210:string http://$${next-server}/
-set 209:string images/${DEBIAN_RELEASE}/debian-installer/${ARCH}/pxelinux.cfg/default
-chain /images/${DEBIAN_RELEASE}/debian-installer/${ARCH}/pxelinux.0
+set 209:string images/${RELEASE}/debian-installer/${ARCH}/pxelinux.cfg/default
+chain /images/${RELEASE}/debian-installer/${ARCH}/pxelinux.0
 BODY
   );
 ?>
