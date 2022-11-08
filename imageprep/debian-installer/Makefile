@@ -61,9 +61,9 @@ define MENU_ENTRY_BODY
 	  "key" => "debian-${RELEASE}-${ARCH}",
 	  "title" => "Install Debian ${RELEASE} ${ARCH}",
 	  "body" => <<<BODY
-set 210:string http://$${next-server}/
+set 210:string http://\\$${next-server}/images/${RELEASE}/
 set 209:string images/${RELEASE}/debian-installer/${ARCH}/pxelinux.cfg/default
-chain /images/${RELEASE}/pxelinux.0
+chain \\$${210:string}pxelinux.0
 BODY
   );
 ?>
