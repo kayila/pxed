@@ -18,12 +18,11 @@ TARGET_DIR=${TARGET_BASE_DIR}/images/${RELEASE}
 MENU_DIR=${TARGET_BASE_DIR}/entries
 
 .PHONY: all
-all: installer-amd64
+all: installer-${ARCH}
 
-# amd64 targets
-${CACHE_DIR}/installer-amd64.netboot.tar.gz:
+${CACHE_DIR}/installer-${ARCH}.netboot.tar.gz:
 	mkdir -p ${CACHE_DIR}
-	-wget ${URL_PREFIX}/installer-amd64/${URL_SUFFIX} -O ${CACHE_DIR}/installer-amd64.netboot.tar.gz -nc
+	-wget ${URL_PREFIX}/installer-${ARCH}/${URL_SUFFIX} -O ${CACHE_DIR}/installer-${ARCH}.netboot.tar.gz -nc
 
 ${MENU_DIR}:
 	mkdir -p ${MENU_DIR}
@@ -31,10 +30,10 @@ ${MENU_DIR}:
 
 export MENU_ENTRY_BODY
 
-.PHONY: installer-amd64
-installer-amd64: ${CACHE_DIR}/installer-amd64.netboot.tar.gz
+.PHONY: installer-${ARCH}
+installer-${ARCH}: ${CACHE_DIR}/installer-${ARCH}.netboot.tar.gz
 	mkdir -p ${TARGET_DIR}
-	tar -xf ${CACHE_DIR}/installer-amd64.netboot.tar.gz -vz -C ${TARGET_DIR}
+	tar -xf ${CACHE_DIR}/installer-${ARCH}.netboot.tar.gz -vz -C ${TARGET_DIR}
 	mkdir -p ${MENU_DIR}
 	printf "$$MENU_ENTRY_BODY" > ${MENU_DIR}/debian-${RELEASE}-${ARCH}.php
 
