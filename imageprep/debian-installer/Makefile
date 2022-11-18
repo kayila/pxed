@@ -13,7 +13,7 @@ URL_PREFIX := https://deb.debian.org/debian/dists/${RELEASE}/main
 URL_SUFFIX := current/images/netboot/netboot.tar.gz
 
 TARGET_BASE_DIR=./target
-TARGET_DIR=${TARGET_BASE_DIR}/images/${RELEASE}
+TARGET_DIR=${TARGET_BASE_DIR}/images/${RELEASE}/${ARCH}
 
 MENU_DIR=${TARGET_BASE_DIR}/entries
 
@@ -60,8 +60,8 @@ define MENU_ENTRY_BODY
 	  "key" => "debian-${RELEASE}-${ARCH}",
 	  "title" => "Install Debian ${RELEASE} ${ARCH}",
 	  "body" => <<<BODY
-set 210:string http://\\$${next-server}/images/${RELEASE}/
-set 209:string images/${RELEASE}/debian-installer/${ARCH}/pxelinux.cfg/default
+set 210:string http://\\$${next-server}/images/${RELEASE}/${ARCH}/
+set 209:string images/${RELEASE}/${ARCH}/debian-installer/${ARCH}/pxelinux.cfg/default
 chain \\$${210:string}pxelinux.0
 BODY
   );
