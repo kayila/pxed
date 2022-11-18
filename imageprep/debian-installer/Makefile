@@ -57,14 +57,27 @@ verycleancache:
 define MENU_ENTRY_BODY
 <?php
 	$$entries[] = array(
-	  "key" => "debian-${RELEASE}-${ARCH}",
-	  "title" => "Install Debian ${RELEASE} ${ARCH}",
+	  "key" => "debian-${RELEASE}-${ARCH}-pcbios",
+	  "title" => "Install Debian ${RELEASE} ${ARCH} pcbios",
 	  "body" => <<<BODY
 set 210:string http://\\$${next-server}/images/${RELEASE}/${ARCH}/
 set 209:string images/${RELEASE}/${ARCH}/debian-installer/${ARCH}/pxelinux.cfg/default
 chain \\$${210:string}pxelinux.0
 BODY
   );
+
+	foreach(glob("../images/${RELEASE}/${ARCH}/debian-installer/${ARCH}/boot*.efi") as $$filename) {
+		$$fname = basename($$filename);
+		$$entries[] = array(
+		  "key" => "debian-${RELEASE}-${ARCH}-$$fname",
+		  "title" => "Install Debian ${RELEASE} ${ARCH} $$fname",
+		  "body" => <<<BODY
+set 210:string http://\\$${next-server}/images/${RELEASE}/${ARCH}/
+set 209:string images/${RELEASE}/${ARCH}/debian-installer/${ARCH}/pxelinux.cfg/default
+chain \\$${210:string}debian-installer/${ARCH}/$$fname
+BODY
+		);
+	}
 ?>
 endef
 
