@@ -15,6 +15,7 @@ COPY files/mapfile /tftpboot/
 
 # Add the ipxe boot image and next.ipxe script for chain booting to NGINX
 COPY files/undionly.kpxe /tftpboot/
+COPY files/ipxe.efi /tftpboot/
 COPY files/next.ipxe /tftpboot/
 
 # Add NGINX & PHP configs
