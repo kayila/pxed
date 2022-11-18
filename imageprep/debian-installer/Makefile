@@ -66,7 +66,7 @@ chain \\$${210:string}pxelinux.0
 BODY
   );
 
-	foreach(glob("../images/${RELEASE}/${ARCH}/debian-installer/${ARCH}/boot*.efi") as $$filename) {
+	foreach(glob("/images/${RELEASE}/${ARCH}/debian-installer/${ARCH}/boot*.efi") as $$filename) {
 		$$fname = basename($$filename);
 		$$entries[] = array(
 		  "key" => "debian-${RELEASE}-${ARCH}-$$fname",
