@@ -10,10 +10,10 @@ It runs a TFTP server and HTTP server (nginx). Your DHCP server should be
 configured to chainload iPXE's `undionly.kpxe` (examples for dd-wrt and
 pfsense are below).
 
-PXEd builds a custom version of `undionly.kpxe`, which includes a script
-that chainloads `tftp://<IP the TFTP server is on>/next.ipxe`.
+PXEd builds a custom version of `undionly.kpxe` and `ipxe.efi`, which
+include a script that chainloads `tftp://<TFTP server IP>/next.ipxe`.
 
-This `next.ipxe` script then chainloads `http://<IP the TFTP server is on>/`.
+This `next.ipxe` script then chainloads `http://<TFTP server IP>/`.
 This means you can just do everything with nginx and PHP scripts. :)
 
 The web root for nginx is `/tftpboot/pxe` inside the Docker container.
@@ -23,18 +23,24 @@ mount `./imageprep/pxeoverlay` at this location.
 ## DHCP, PXE, launching yourself into the sun for your own sanity, etc
 
 In order for this to work, the DHCP server needs to be have the dhcp-boot
-parameter pointed at the docker container and set to the `undionly.kpxe`
-boot image.
+parameters pointed at the docker container and set to the appropiate boot
+image file. (`undionly.kpxe` or `ipxe.efi`, usually)
 
 ### Configuration for pfSense
 
-TODO: Figure this out?
+On pfSense, you need to add the ip address for the next server and
+filenames into the dhcp server configuration.
+
+![pfSense Configuration Example](/docs/pfsense.png)
+
 
 ### Configuration for dd-wrt
 
 Below is an example of this configuration line for dd-wrt.
 
 Note for dd-wrt, this must go into DNSMasq additional options, NOT DHCP.
+
+Additionally, this will only provide `undionly.kpxe`, not `ipxe.efi`.
 
 ```
 dhcp-boot=undionly.kpxe,pxebootcontainer,192.168.1.114

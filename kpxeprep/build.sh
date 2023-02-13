@@ -1,10 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Stop on first error
 set -e
 
 IMAGENAME="kpxebuilder"
 TAG="latest"
-MOUNTS="-v $(pwd)/../files:/tmp/files:z -v $(pwd):/tmp/build:z -w /tmp/build"
+MOUNTS="-v $(pwd)/../docker/files:/tmp/files:z -v $(pwd):/tmp/build:z -w /tmp/build"
 
 image=$(docker images --format "{{.Repository}}\t{{.Tag}}\t{{.CreatedAt}}" "${IMAGENAME}:${TAG}")
 time=$(echo "${image}" | cut -f 3)
